@@ -27,7 +27,7 @@ function login(req,res){
             delete user.password;
 
             //Set the cookie in case of valid user
-            res.cookie(config.userCookieName, user);
+            res.cookie(config.userCookieName, JSON.stringify(user));
             //Return the user data
             res.send({ success: true , errorMessage : null , user: user });
 

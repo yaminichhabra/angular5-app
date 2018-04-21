@@ -13,18 +13,13 @@ import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './view/view.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthService } from './auth.service';
-
+import { CookieService } from './cookie.service';
+import { UnauthenticatedRoutesGuard } from './unauthenticated-routes-guard.service';
+import { AuthenticatedRoutesGuard } from './authenticated-routes-guard.service';
 /*
  * App Routes
  */
-const appRoutes: Routes = [
-  //Redirect to welcome route if no route is specified
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'view', component: ViewComponent },
-  { path: '**', component: WelcomeComponent }
-];
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -38,7 +33,12 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { useHash :true }),
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    CookieService,
+    UnauthenticatedRoutesGuard,
+    AuthenticatedRoutesGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
