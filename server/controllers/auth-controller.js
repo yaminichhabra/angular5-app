@@ -19,9 +19,10 @@ function login(req,res){
         //Get Username and password from request
         const username = req.body.username;
         const password = req.body.password;
+
         //Check whether user credentials are valid or not;
         if(users[username] && users[username]["password"] === password) {
-            const user = users[username];
+            const user = Object.assign({}, users[username]);
             user.username = username;
             delete user.password;
 

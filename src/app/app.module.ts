@@ -4,14 +4,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 /*
- * App Components
+ * App Components and Services
  */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './view/view.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthService } from './auth.service';
 
 /*
  * App Routes
@@ -21,7 +22,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'view',      component: ViewComponent },
+  { path: 'view', component: ViewComponent },
   { path: '**', component: WelcomeComponent }
 ];
 
@@ -34,9 +35,10 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, { useHash :true })
+    RouterModule.forRoot(appRoutes, { useHash :true }),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
